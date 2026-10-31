@@ -1,0 +1,35 @@
+{
+  "dataset_file": "StressLevelDataset.csv",
+  "dataset_shape": [
+    1100,
+    21
+  ],
+  "predictor_count": 20,
+  "target_excluded_from_model_inputs": "stress_level",
+  "selected_k": 5,
+  "dbscan_eps": 1.809,
+  "dbscan_min_samples": 15,
+  "dbscan_selection_note": "Highest Silhouette score among configurations with at least 50% coverage and at least two clusters.",
+  "algorithms": [
+    "K-Means",
+    "Agglomerative",
+    "Bisecting K-Means",
+    "Gaussian Mixture",
+    "DBSCAN"
+  ],
+  "pca_components_for_95_percent_variance": 16,
+  "tsne_parameters": {
+    "n_components": 2,
+    "perplexity": 30,
+    "learning_rate": "auto",
+    "init": "pca",
+    "random_state": 42,
+    "max_iter": 1000
+  },
+  "original_sne_sample_size": 800,
+  "original_sne_converged": true,
+  "original_sne_optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+  "original_sne_final_kl_objective": 1168.6407142409091,
+  "original_sne_gradient_norm": 0.0013961003185111156,
+  "random_state": 42
+}

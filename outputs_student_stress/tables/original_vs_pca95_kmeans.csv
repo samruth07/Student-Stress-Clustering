@@ -1,0 +1,3 @@
+feature_space,clusters,coverage_pct,noise_pct,silhouette,davies_bouldin,calinski_harabasz
+Original standardized features,5,100.0,0.0,0.44888640852901623,2.3096648217393025,560.2013852115012
+PCA space (>=95% variance),5,100.0,0.0,0.47276697497191467,2.219904447592474,637.8829042424627

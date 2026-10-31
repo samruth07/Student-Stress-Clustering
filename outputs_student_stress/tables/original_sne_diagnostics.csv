@@ -1,0 +1,2 @@
+perplexity,sample_size,converged,optimizer_message,iterations,function_evaluations,final_kl_objective,gradient_norm
+30.0,800,True,CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH,106,111,1168.6407142409091,0.0013961003185111156
