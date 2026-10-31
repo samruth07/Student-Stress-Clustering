@@ -13,11 +13,10 @@
   "algorithms": [
     "K-Means",
     "Agglomerative",
-    "Bisecting K-Means",
-    "Gaussian Mixture",
     "DBSCAN"
   ],
   "pca_components_for_95_percent_variance": 16,
+  "pca_first_two_components_variance": 0.6553761388534448,
   "tsne_parameters": {
     "n_components": 2,
     "perplexity": 30,
@@ -29,6 +28,7 @@
   "original_sne_sample_size": 800,
   "original_sne_converged": true,
   "original_sne_optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+  "original_sne_iterations": 106,
   "original_sne_final_kl_objective": 1168.6407142409091,
   "original_sne_gradient_norm": 0.0013961003185111156,
   "random_state": 42

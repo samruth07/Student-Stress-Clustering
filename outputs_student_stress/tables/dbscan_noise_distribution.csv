@@ -1,0 +1,11 @@
+algorithm,cluster,records,dbscan_noise_records,noise_share_within_cluster_pct
+K-Means,0,308,12,3.896103896103896
+K-Means,1,300,0,0.0
+K-Means,2,97,97,100.0
+K-Means,3,300,5,1.6666666666666667
+K-Means,4,95,95,100.0
+Agglomerative,0,200,200,100.0
+Agglomerative,1,154,2,1.2987012987012987
+Agglomerative,2,300,4,1.3333333333333333
+Agglomerative,3,300,0,0.0
+Agglomerative,4,146,3,2.0547945205479454

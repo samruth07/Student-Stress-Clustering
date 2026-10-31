@@ -1,6 +1,6 @@
 # Student Stress Pattern Analysis Using Unsupervised Learning
 
-A Python-based unsupervised machine learning project that explores patterns in student stress-related survey data. The project applies multiple clustering algorithms to 20 student-related features and compares the resulting groups using internal evaluation metrics, dimensionality-reduction visualizations, cluster agreement analysis, and post-clustering validation.
+A Python-based unsupervised machine learning project that explores patterns in student stress-related survey data. The project applies three clustering algorithms to 20 student-related features and compares the resulting groups using internal evaluation metrics, dimensionality-reduction visualizations, cluster agreement analysis, and post-clustering validation.
 
 The `stress_level` column is held out from model fitting. It is used only after clustering to examine how the discovered groups relate to the dataset's existing stress-level categories.
 
@@ -12,8 +12,6 @@ The following clustering algorithms are implemented and compared:
 
 - K-Means Clustering
 - Agglomerative Hierarchical Clustering
-- Bisecting K-Means
-- Gaussian Mixture Model (GMM)
 - DBSCAN
 
 Dimensionality reduction and visualization are performed using:
@@ -26,12 +24,12 @@ Dimensionality reduction and visualization are performed using:
 
 - **Exploratory Data Analysis:** Examines feature distributions, missing values, descriptive statistics, and feature correlations.
 - **Data Preprocessing:** Separates the held-out label, handles missing values, and standardizes predictor features.
-- **Multiple Clustering Algorithms:** Compares five clustering approaches using a common standardized feature matrix.
+- **Clustering Algorithms:** Compares K-Means, Agglomerative Hierarchical Clustering, and DBSCAN using the standardized feature matrix.
 - **Cluster Selection:** Uses the Elbow Method and Silhouette Score to examine candidate K-Means cluster counts.
 - **DBSCAN Parameter Tuning:** Evaluates combinations of `eps` and `min_samples`, considering both cluster quality and the proportion of records assigned to clusters.
 - **Dimensionality Reduction:** Uses PCA, t-SNE, and SNE to explore the data in two dimensions.
 - **Model Evaluation:** Reports Silhouette Score, Davies-Bouldin Index, and Calinski-Harabasz Score.
-- **Cluster Agreement:** Uses pairwise Adjusted Rand Index (ARI) to compare the partitions produced by different algorithms.
+- **Cluster Agreement:** Uses pairwise Adjusted Rand Index (ARI) to compare the partitions produced by the three algorithms.
 - **Post-clustering Validation:** Compares cluster labels with the held-out `stress_level` column using ARI and Normalized Mutual Information (NMI).
 - **Result Export:** Saves figures, evaluation tables, cluster assignments, embeddings, and experiment metadata.
 
@@ -102,7 +100,7 @@ The `stress_level` column is excluded from preprocessing, dimensionality reducti
 3. **Feature Preparation:** Separate the 20 predictor features from the held-out `stress_level` column.
 4. **Preprocessing:** Apply median imputation where required and standardize the predictor features using `StandardScaler`.
 5. **K-Means Cluster Selection:** Examine inertia and Silhouette Scores for candidate values of K.
-6. **Model Training:** Fit K-Means, Agglomerative Clustering, Bisecting K-Means, and Gaussian Mixture Models.
+6. **Model Training:** Fit K-Means and Agglomerative Hierarchical Clustering.
 7. **DBSCAN Tuning:** Examine nearest-neighbour distances and evaluate candidate `eps` and `min_samples` settings.
 8. **Model Evaluation:** Compare internal clustering metrics and report DBSCAN's coverage and noise percentage.
 9. **Dimensionality Reduction:** Generate PCA, t-SNE, and SNE embeddings and visualize cluster assignments.
@@ -129,23 +127,7 @@ Agglomerative clustering builds groups by progressively merging observations or 
 - Number of clusters: 5
 - Linkage method: Ward
 
-### 3. Bisecting K-Means
-
-Bisecting K-Means recursively divides clusters using K-Means sub-clustering.
-
-- Number of clusters: 5
-- Random state: 42
-
-### 4. Gaussian Mixture Model (GMM)
-
-GMM models the data as a mixture of Gaussian distributions and assigns each observation to the component with the highest posterior probability.
-
-- Number of components: 5
-- Covariance type: Full
-- Random state: 42
-- Recorded convergence: Converged in 3 iterations
-
-### 5. DBSCAN
+### 3. DBSCAN
 
 DBSCAN identifies dense regions and marks observations that do not meet the density requirements as noise (`-1`).
 
@@ -173,8 +155,6 @@ The following values are from the recorded experiment. For DBSCAN, internal metr
 |---|---:|---:|---:|---:|---:|---:|
 | K-Means | 5 | 100.0 | 0.0 | 0.4489 | 2.3097 | 560.2014 |
 | Agglomerative | 5 | 100.0 | 0.0 | 0.3667 | 1.7272 | 549.2617 |
-| Bisecting K-Means | 5 | 100.0 | 0.0 | 0.4453 | 3.0663 | 537.1837 |
-| Gaussian Mixture | 5 | 100.0 | 0.0 | 0.3667 | 1.7272 | 549.2617 |
 | DBSCAN | 4 | 81.0 | 19.0 | 0.4832 | 1.1294 | 1796.9997 |
 
 ### Comparison on the DBSCAN Non-noise Subset
@@ -185,8 +165,6 @@ To compare the algorithms on the same observations, the metrics were recalculate
 |---|---:|---:|---:|---:|
 | K-Means | 3 | 0.5706 | 0.6878 | 2332.5922 |
 | Agglomerative | 4 | 0.4832 | 1.1294 | 1796.9997 |
-| Bisecting K-Means | 3 | 0.5706 | 0.6878 | 2332.5922 |
-| Gaussian Mixture | 4 | 0.4832 | 1.1294 | 1796.9997 |
 | DBSCAN | 4 | 0.4832 | 1.1294 | 1796.9997 |
 
 ### Post-clustering Validation
@@ -197,20 +175,17 @@ The `stress_level` column is compared with the generated cluster labels only aft
 |---|---:|---:|
 | K-Means | 0.7166 | 0.6792 |
 | Agglomerative | 0.6096 | 0.6763 |
-| Bisecting K-Means | 0.7208 | 0.6914 |
-| Gaussian Mixture | 0.6096 | 0.6763 |
 | DBSCAN | 0.5990 | 0.6692 |
 
-Bisecting K-Means has the highest ARI and NMI in this recorded post-clustering comparison. These scores measure agreement with the supplied label; they do not establish clinical or psychological validity.
+K-Means has the highest ARI and NMI among the three algorithms in this recorded post-clustering comparison. These scores measure agreement with the supplied label; they do not establish clinical or psychological validity.
 
 ### Pairwise Cluster Agreement
 
 Pairwise Adjusted Rand Index comparisons show that:
 
-- Agglomerative Clustering and GMM have identical partitions on the full dataset (ARI = 1.0000).
-- K-Means and Bisecting K-Means have high agreement on the full dataset (ARI = 0.9514).
-- K-Means and Bisecting K-Means produce identical partitions on the DBSCAN non-noise subset (ARI = 1.0000).
-- Agglomerative Clustering, GMM, and DBSCAN have identical partitions on the DBSCAN non-noise subset (pairwise ARI = 1.0000).
+- K-Means and Agglomerative Clustering have an ARI of 0.8337 on the full dataset and 0.8712 on the DBSCAN non-noise subset.
+- K-Means and DBSCAN have an ARI of 0.8165 on the full dataset and 0.8712 on the DBSCAN non-noise subset.
+- Agglomerative Clustering and DBSCAN have an ARI of 0.9819 on the full dataset and 1.0000 on the DBSCAN non-noise subset.
 
 ### K-Means Stability
 
@@ -254,25 +229,28 @@ Student-Stress-Clustering/
 ├── StressLevelDataset.csv
 ├── Student_Stress_Clustering.ipynb
 ├── README.md
+├── Unsupervised Clustering of Student Stress Patterns Report.docx
 │
 └── outputs_student_stress/
     ├── figures/
     │   ├── feature_distributions.png
     │   ├── spearman_correlation_heatmap.png
     │   ├── feature_boxplots.png
+    │   ├── target_distribution_posthoc_only.png
     │   ├── kmeans_elbow_and_silhouette.png
     │   ├── dbscan_k_distance.png
     │   ├── silhouette_comparison.png
     │   ├── davies_bouldin_comparison.png
     │   ├── calinski_harabasz_comparison.png
     │   ├── cluster_size_comparison.png
+    │   ├── kmeans_cluster_profile_heatmap.png
     │   ├── pca_explained_variance.png
     │   ├── pca_cluster_comparison.png
     │   ├── pca_loadings_heatmap.png
     │   ├── tsne_cluster_comparison.png
-    │   ├── original_sne_kmeans.png
-    │   ├── kmeans_cluster_profile_heatmap.png
-    │   └── all_algorithms_pca_comparison.png
+    │   ├── original_sne_cluster_comparison.png
+    │   ├── pairwise_ari_comparison.png
+    │   └── dbscan_noise_distribution.png
     │
     ├── tables/
     │   ├── feature_summary.csv
@@ -285,13 +263,19 @@ Student-Stress-Clustering/
     │   ├── original_vs_pca95_kmeans.csv
     │   ├── tsne_embedding.csv
     │   ├── original_sne_embedding.csv
+    │   ├── original_sne_diagnostics.csv
     │   ├── kmeans_cluster_profile_means.csv
     │   ├── kmeans_cluster_profile_medians.csv
-    │   └── posthoc_external_validation.csv
+    │   ├── posthoc_external_validation.csv
+    │   ├── pairwise_ari_comparison.csv
+    │   ├── dbscan_non_noise_subset_comparison.csv
+    │   └── dbscan_noise_distribution.csv
     │
     ├── final_cluster_assignments.csv
     ├── final_algorithm_comparison.csv
     ├── final_cluster_sizes.csv
+    ├── final_pairwise_ari_comparison.csv
+    ├── final_dbscan_non_noise_comparison.csv
     └── model_metadata.json
 ```
 
@@ -315,7 +299,7 @@ Keep `StressLevelDataset.csv` in the same directory as the notebook, or place it
 
 ### 4. Open the notebook
 
-Open `Student_Stress_Clustering_Clean.ipynb` in Jupyter Notebook or Visual Studio Code and select the Python environment containing the required libraries.
+Open `Student_Stress_Clustering.ipynb` in Jupyter Notebook or Visual Studio Code and select the Python environment containing the required libraries.
 
 ### 5. Run the notebook
 
@@ -359,7 +343,8 @@ The analysis is exploratory and is not intended for diagnosis or individual asse
 | Domain | Machine Learning / Unsupervised Learning |
 | Dataset size | 1,100 records, 21 columns |
 | Clustering input | 20 predictor features |
-| Clustering algorithms | K-Means, Agglomerative, Bisecting K-Means, GMM, DBSCAN |
+| Clustering algorithms | K-Means, Agglomerative Hierarchical Clustering, DBSCAN |
 | Dimensionality reduction | PCA, t-SNE, SNE |
 | Evaluation | Silhouette, Davies-Bouldin, Calinski-Harabasz, ARI, NMI |
 | Development environment | Python, Jupyter Notebook, Visual Studio Code |
+```
